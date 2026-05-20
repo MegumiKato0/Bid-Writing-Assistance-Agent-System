@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bidprep"
+version = "0.1.0"
+description = "招标 PDF 抽取 → 投标材料清单与填空表"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.109.0",
+  "uvicorn[standard]>=0.27.0",
+  "python-multipart>=0.0.9",
+  "pymupdf>=1.23.0",
+  "openai>=1.40.0",
+  "socksio>=1.0.0",
+  "pydantic>=2.5.0",
+  "pydantic-settings>=2.1.0",
+  "jinja2>=3.1.0",
+  "openpyxl>=3.1.0",
+  "python-dotenv>=1.0.0",
+  "reportlab>=4.0.0",
+  "python-docx>=1.1.0",
+  "pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+ocr = ["pytesseract>=0.3.10"]
+docs = ["playwright>=1.40.0"]
+
+[project.scripts]
+bidprep = "bidprep.cli:main"
+bidprep-phase2 = "bidprep.phase2.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+bidprep = ["templates/*.j2"]

@@ -1,0 +1,154 @@
+# 投标材料准备清单
+
+> 本文档由系统自动从招标文件抽取生成，仅供投标准备辅助。**关键条款以纸质文件及采购人/代理机构澄清为准。**
+
+## 项目基本信息
+
+| 项目 | 内容 |
+|------|------|
+| **项目名称** | {{ project_basic.project_name or "—" }} |
+| **项目编号** | {{ project_basic.project_number or "—" }} |
+| **采购人** | {{ project_basic.purchaser or "—" }} |
+| **代理机构** | {{ project_basic.agency or "—" }} |
+| **最高控制价** | {{ project_basic.max_price or "—" }} |
+| **代理服务费** | {{ project_basic.agency_fee or "—" }} |
+| **谈判保证金** | {{ project_basic.bid_bond or "—" }} |
+| **响应文件截止时间** | {{ project_basic.bid_deadline or "—" }} |
+| **提交地点** | {{ project_basic.submit_location or "—" }} |
+
+---
+
+## 第一部分：公司基本信息（请填写）
+
+```
+〔 〕公司全称：
+〔 〕统一社会信用代码：
+〔 〕注册地址：
+〔 〕办公地址：
+〔 〕成立时间：
+〔 〕注册资本：
+〔 〕经营范围：
+〔 〕公司类型：□企业 □事业单位 □社会团体 □其他
+```
+
+---
+
+## 第二部分：人员信息（请填写）
+
+### 法定代表人信息
+```
+〔 〕姓名：
+〔 〕身份证号：
+〔 〕联系电话：
+〔 〕手机号：
+```
+
+### 授权代表信息（如非法定代表人参加）
+```
+〔 〕姓名：
+〔 〕职务：
+〔 〕身份证号：
+〔 〕联系电话：
+〔 〕手机号：
+〔 〕电子邮箱：
+```
+
+### 公司联系方式
+```
+〔 〕通信地址：
+〔 〕邮编：
+〔 〕传真号：
+〔 〕电子邮箱：
+```
+
+---
+
+## 第三部分：资格与响应文件材料清单（归纳）
+
+| 序号 | 材料名称 | 是否已准备 | 备注 |
+|------|----------|------------|------|
+{% for m in materials[:40] %}
+| {{ loop.index }} | {{ m.name }} | {{ m.status }} | {{ m.remark }} |
+{% endfor %}
+
+{% if not materials %}
+| 1 | （待模型归纳或人工补充） | ☐ 需准备 | 请对照招标文件「响应文件组成」「资格性要求」等章节 |
+{% endif %}
+
+---
+
+## 第四部分：响应文件组成（摘录）
+
+{% if response_file_parts %}
+{% for line in response_file_parts %}
+- {{ line }}
+{% endfor %}
+{% else %}
+- （未从文本中自动归纳，请查阅招标文件「响应文件的组成」章节）
+{% endif %}
+
+---
+
+## 第五部分：项目服务/商务要求摘要
+
+{% if service_summary.scope_bullets %}
+### 范围与内容
+{% for x in service_summary.scope_bullets %}
+- {{ x }}
+{% endfor %}
+{% endif %}
+
+{% if service_summary.key_dates %}
+### 时间节点
+{% for x in service_summary.key_dates %}
+- {{ x }}
+{% endfor %}
+{% endif %}
+
+{% if service_summary.focus_areas %}
+### 重点内容
+{% for x in service_summary.focus_areas %}
+- {{ x }}
+{% endfor %}
+{% endif %}
+
+---
+
+## 第六部分：注意事项（摘录）
+
+{% for c in cautions[:30] %}
+- {{ c }}
+{% else %}
+- （无自动摘录，请通读供应商须知全文）
+{% endfor %}
+
+---
+
+## 第七部分：待收集信息汇总
+
+{% for item in collection_checklist[:50] %}
+- [ ] {{ item }}
+{% else %}
+- [ ] 公司基本信息、授权代表信息、报价与技术商务响应材料等（请结合填空表）
+{% endfor %}
+
+---
+
+## 第八部分：联系方式
+
+### 采购人
+- **单位**：{{ purchaser_contact.unit or "—" }}
+- **地址**：{{ purchaser_contact.address or "—" }}
+- **联系人**：{{ purchaser_contact.contact or "—" }}
+- **电话**：{{ purchaser_contact.phone or "—" }}
+
+### 代理机构
+- **单位**：{{ agency_contact.unit or "—" }}
+- **地址**：{{ agency_contact.address or "—" }}
+- **联系人**：{{ agency_contact.contact or "—" }}
+- **电话**：{{ agency_contact.phone or "—" }}
+- **邮箱**：{{ agency_contact.email or "—" }}
+
+---
+
+*文档生成时间：{{ generated_at }}*
